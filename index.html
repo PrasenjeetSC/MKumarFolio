@@ -75,6 +75,13 @@
       opacity: 1;
       transform: translateY(0);
     }
+
+    .counter {
+      transition: transform 0.3s ease;
+    }
+    .counter.animate {
+      transform: scale(1.1);
+    }
   </style>
 </head>
 <body class="font-sans text-gray-800">
@@ -273,12 +280,29 @@
     </div>
 
     <!-- Stats -->
-    <div class="mt-20 bg-soft">
+    <div class="mt-20 bg-soft" id="statsSection">
       <div class="max-w-7xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8 px-6 py-12 text-center">
-        <div><h3 class="text-3xl font-bold">15+</h3><p>Years Experience</p></div>
-        <div><h3 class="text-3xl font-bold">300+</h3><p>Happy Clients</p></div>
-        <div><h3 class="text-3xl font-bold">750+</h3><p>Projects</p></div>
-        <div><h3 class="text-3xl font-bold">25+</h3><p>Awards</p></div>
+
+        <div>
+          <h3 class="text-3xl font-bold counter" data-target="15">0+</h3>
+          <p>Years Experience</p>
+        </div>
+
+        <div>
+          <h3 class="text-3xl font-bold counter" data-target="300">0+</h3>
+          <p>Happy Clients</p>
+        </div>
+
+        <div>
+          <h3 class="text-3xl font-bold counter" data-target="750">0+</h3>
+          <p>Projects</p>
+        </div>
+
+        <div>
+          <h3 class="text-3xl font-bold counter" data-target="25">0+</h3>
+          <p>Awards</p>
+        </div>
+
       </div>
     </div>
   </section>
@@ -709,6 +733,45 @@
       if (endX - startX > 50) showPrev();
       if (startX - endX > 50) showNext();
     });
+  
+    /* Animated Counters */
+    const counters = document.querySelectorAll('.counter');
+    const statsSection = document.getElementById('statsSection');
+    let started = false;
+
+    function runCounters() {
+      counters.forEach(counter => {
+        const target = +counter.dataset.target;
+        const duration = 2200; // milliseconds (2.2 seconds)
+        const startTime = performance.now();
+
+        function update(now) {
+          const progress = Math.min((now - startTime) / duration, 1);
+          const value = Math.floor(progress * target);
+
+          counter.textContent = value + '+';
+
+          if (progress < 1) {
+            requestAnimationFrame(update);
+          } else {
+            counter.textContent = target + '+';
+          }
+        }
+
+        requestAnimationFrame(update);
+      });
+    }
+
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && !started) {
+          started = true;
+          runCounters();
+        }
+      });
+    }, { threshold: 0.4 });
+
+    observer.observe(statsSection);
 
   });
   </script>
