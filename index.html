@@ -120,66 +120,7 @@
   </script>
 
   <!-- Global Styles -->
-  <style>
-    html { scroll-behavior: smooth; }
-
-    /*-- Custom Styles for Navbar Animation --*/
-    #siteNavbar {
-      transition: all 0.35s ease;
-      overflow: hidden;
-    }
-
-    .navbar-hidden {
-      max-height: 0;
-      opacity: 0;
-      padding-top: 0 !important;
-      padding-bottom: 0 !important;
-      box-shadow: none !important;
-    }
-
-    .navbar-visible {
-      max-height: 200px; /* enough for navbar */
-      opacity: 1;
-    }
-
-    /* SCROLLSPY */
-    .nav-link.active {
-      color: #7c3aed; /* brand */
-      font-weight: 600;
-      position: relative;
-    }
-
-    .nav-link.active::after {
-      content: '';
-      position: absolute;
-      left: 50%;
-      bottom: -6px;
-      transform: translateX(-50%);
-      width: 6px;
-      height: 6px;
-      background: #7c3aed;
-      border-radius: 999px;
-    }
-
-    /* SCROLL REVEAL */
-    .reveal {
-      opacity: 0;
-      transform: translateY(24px);
-      transition: opacity 0.6s ease, transform 0.6s ease;
-    }
-
-    .reveal.active {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .counter {
-      transition: transform 0.3s ease;
-    }
-    .counter.animate {
-      transform: scale(1.1);
-    }
-  </style>
+  <link rel="stylesheet" href="assets/css/styles.css" />
 </head>
 <body class="font-sans text-gray-800">
 
